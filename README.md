@@ -1,2 +1,11 @@
 # BridgeBuddy
 Chain abstracted wallet
+
+
+## Testing
+
+0x818024AB29Bd978a28ff4CE2325a79ca301F78f7
+
+safe: 
+gor:0xD02d7564515AC155620B02e43B681954c671340E
+base-gor:0x29bD8B2FCF7d0C215576f5dB4E7b065b45F0744d
