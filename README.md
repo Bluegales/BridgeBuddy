@@ -1,0 +1,2 @@
+# BridgeBuddy
+Chain abstracted wallet
