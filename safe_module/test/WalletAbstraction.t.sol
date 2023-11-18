@@ -9,7 +9,7 @@ contract WalletAbstractionModuleTest is Test {
     WalletAbstractionModule public module;
 
     function setUp() public {
-        module = WalletAbstractionModule(0xa8F241ea12F8b739b2CB8342B03D94D019aA7aAc);
+        module = WalletAbstractionModule(0xD8e7f0ff4Ab8CDe449b3DA1F707393b1920217fF);
         // module = new WalletAbstractionModule();
         // ISafe(0xea49182d6557F8BD20Fe8c56955b337De404166C).enableModule(address(module));
     }

@@ -13,7 +13,7 @@ async function main() {
     const RPC_URL = 'https://eth-goerli.public.blastapi.io'
     // const RPC_URL = 'https://base-goerli.publicnode.com'
     const SAFE_ADDRES = '0xea49182d6557F8BD20Fe8c56955b337De404166C'
-    const MODULE = '0xa8F241ea12F8b739b2CB8342B03D94D019aA7aAc'
+    const MODULE = '0xD8e7f0ff4Ab8CDe449b3DA1F707393b1920217fF'
     const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
     const owner1Signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
     const ethAdapter = new EthersAdapter({

@@ -38,8 +38,8 @@ contract WalletAbstractionModule is IMessageRecipient {
     // chain -> this contract
     mapping(uint32 => bytes32) public remoteModuleAddress;
 
-    function addRemoteModule(uint32 chain, bytes32 contractAddress) external {
-        remoteModuleAddress[chain] = contractAddress;
+    function addRemoteModule(uint32 chain, address contractAddress) external {
+        remoteModuleAddress[chain] = bytes32(uint256(uint160(contractAddress)));
     }
 
     function deleteRemoteModule(uint32 chain) external {
@@ -83,12 +83,12 @@ contract WalletAbstractionModule is IMessageRecipient {
         ISafe(safe).execTransactionFromModule(warproute, protocolFee, transferData, 0);
         emit BridgeFunds(destinationChain, remoteSafe, token, amount);
 
-        IMailbox(mailbox).dispatch(
-            destinationChain,
-            remoteModuleAddress[destinationChain],
-            abi.encodePacked(remoteSafe, token, body)
-        );
-        emit DispatachedExecution(destinationChain, body);
+        // IMailbox(mailbox).dispatch{value: 1000000000000}(
+        //     destinationChain,
+        //     remoteModuleAddress[destinationChain],
+        //     abi.encodePacked(remoteSafe, token, body)
+        // );
+        // emit DispatachedExecution(destinationChain, body);
     }
 
     /**
@@ -102,7 +102,7 @@ contract WalletAbstractionModule is IMessageRecipient {
         bytes32 sender,
         bytes calldata body
     ) external {
-        // require(remoteModuleAddress[origin] == sender, "sender address not valid");
+        require(remoteModuleAddress[origin] == sender, "sender address not valid");
         handleChainAbstractedCall(body);
     }
 

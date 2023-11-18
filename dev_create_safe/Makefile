@@ -11,6 +11,10 @@ transact:
 addmodule:
 	npx ts-node ./add_module.ts
 
+addremote:
+	cast send 0xe2d837A28FCc5BD57Bc642A7e2245dF86E366ae3 "addRemoteModule(uint32,address)" 84531 0x4E059b964778B945E4ae906880974487C907a4c6 --rpc-url https://eth-goerli.public.blastapi.io --private-key 648573ebfd6a7518a5a3fa9bd510ac27be0fd77deb95a348ba39cf0aca501093
+	# npx ts-node ./add_remote.ts
+
 bridge:
 	npx ts-node ./bridgeexec.ts
 

@@ -12,12 +12,22 @@ interface IMessageRecipient {
 }
 
 interface IMailbox {
-    /**
-     * @notice Dispatches a message to the destination domain & recipient.
-     * @param _destination Domain of destination chain
-     * @param _recipient Address of recipient on destination chain as bytes32
-     * @param _body Raw bytes content of message body
-     * @return bytes32 The message ID inserted into the Mailbox's merkle tree
-     */
-    function dispatch(uint32 _destination, bytes32 _recipient, bytes calldata _body) external returns (bytes32);
+    function dispatch(
+        uint32 destinationDomain,
+        bytes32 recipientAddress,
+        bytes calldata messageBody
+    ) external payable returns (bytes32 messageId);
+
+    function quoteDispatch(
+        uint32 destinationDomain,
+        bytes32 recipientAddress,
+        bytes calldata messageBody
+    ) external view returns (uint256 fee);
+
+    function quoteDispatch(
+        uint32 destinationDomain,
+        bytes32 recipientAddress,
+        bytes calldata messageBody,
+        bytes calldata defaultHookMetadata
+    ) external view returns (uint256 fee);
 }
