@@ -7,3 +7,13 @@ deploy:
 
 transact:
 	npx ts-node ./transact.ts
+
+addmodule:
+	npx ts-node ./add_module.ts
+
+checkenable:
+	@echo goerli
+	cast call 0xea49182d6557F8BD20Fe8c56955b337De404166C "isModuleEnabled(address)(bool)" 0x155235d1F0B6B9D94070909c251E95E0bB8aA975 --rpc-url https://eth-goerli.public.blastapi.io
+	@echo base
+	cast call 0x29bD8B2FCF7d0C215576f5dB4E7b065b45F0744d "isModuleEnabled(address)(bool)" 0x4E059b964778B945E4ae906880974487C907a4c6 --rpc-url https://base-goerli.publicnode.com
+	
