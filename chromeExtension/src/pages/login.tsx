@@ -1,4 +1,5 @@
 import { Avatar, Input } from "@nextui-org/react";
+import { useUser } from "../contexts/user";
 import React, { useState } from "react";
 
 const EyeVisible = ({className = ""}) => (
@@ -20,6 +21,7 @@ interface LoginPageProps {
 	onLogin: () => void;
 }
 const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
+	const { setLocked, password } = useUser();
 	const [isVisible, setIsVisible] = useState(false);
 	const [error, setError] = useState("");
 
@@ -30,11 +32,11 @@ const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
 			setError("");
 			return;
 		}
-		if ((e.target as HTMLInputElement).value !== "1234") {
+		if ((e.target as HTMLInputElement).value !== password) {
 			setError("Incorrect password");
 			return;
 		}
-		onLogin();
+		setLocked(false);
 	}
 
 	return (

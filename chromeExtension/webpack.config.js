@@ -48,10 +48,16 @@ module.exports = {
       {
          apply: (compiler) => {
             compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
-               const files = glob.sync(`${nextconfig.distDir}/**/*.html`);
-               files.forEach((file) => {
+               const htmlFiles = glob.sync(`${nextconfig.distDir}/**/*.html`);
+               htmlFiles.forEach((file) => {
                   const content = fs.readFileSync(file, 'utf-8');
-                  const modifiedContent = content.replace(/\/_next/g, './next');
+                  const modifiedContent = content.replace(/\/_next\//g, './next/');
+                  fs.writeFileSync(file, modifiedContent, 'utf-8');
+               });
+               const jsFiles = glob.sync(`${nextconfig.distDir}/**/*.js`);
+               jsFiles.forEach((file) => {
+                  const content = fs.readFileSync(file, 'utf-8');
+                  const modifiedContent = content.replace(/\/_next\//g, '/next/');
                   fs.writeFileSync(file, modifiedContent, 'utf-8');
                });
             });
