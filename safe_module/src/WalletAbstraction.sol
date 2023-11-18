@@ -7,7 +7,7 @@ import "forge-std/interfaces/IERC20.sol";
 
 contract WalletAbstractionModule is IMessageRecipient {
     string public constant NAME = "Wallet Abstraction Module";
-    string public constant VERSION = "0.1.0";
+    string public constant VERSION = "0.1.1";
 
     bytes32 public constant DOMAIN_SEPARATOR_TYPEHASH =
         keccak256("EIP712Domain(uint256 chainId,address verifyingContract)");
@@ -52,6 +52,7 @@ contract WalletAbstractionModule is IMessageRecipient {
     /// @param warproute Warproute address on this chain
     /// @param mailbox Mailbox address on this chain
     /// @param body Data payload of module transaction on remote chain.
+    /// @param protocolFee Fee payed for the swap
     /// @param remoteSafe address of safe on the remote chain
     /// @param token Token address that needs to be bridged
     /// @param amount Token amount that need to be bridged
@@ -61,6 +62,7 @@ contract WalletAbstractionModule is IMessageRecipient {
         address warproute,
         address mailbox,
         bytes calldata body,
+        uint256 protocolFee,
         address remoteSafe,
         address token,
         uint256 amount
@@ -75,10 +77,10 @@ contract WalletAbstractionModule is IMessageRecipient {
         bytes memory transferData = abi.encodeWithSignature(
             "transferRemote(uint32,bytes32,uint256)",
             destinationChain,
-            remoteSafe,
+            bytes32(uint256(uint160(remoteSafe))),
             amount
         );
-        ISafe(safe).execTransactionFromModule(warproute, 0, transferData, 0);
+        ISafe(safe).execTransactionFromModule(warproute, protocolFee, transferData, 0);
         emit BridgeFunds(destinationChain, remoteSafe, token, amount);
 
         IMailbox(mailbox).dispatch(
