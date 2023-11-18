@@ -1,3 +1,9 @@
 {
-  "address": "0x86EBd73E09D41332a0e153D800ebdA27274E3280"
+  "basegoerli": {
+      "address": "0x86EBd73E09D41332a0e153D800ebdA27274E3280"
+  }
+  "base": {
+      "address": "0x02e1f5CBd47e9EE3Da10A5A159849cbbCB4b1ee0"
+  }
+    
 }
