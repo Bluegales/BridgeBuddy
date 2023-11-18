@@ -1,3 +1,0 @@
-[submodule "safe_module/lib/forge-std"]
-	path = safe_module/lib/forge-std
-	url = https://github.com/foundry-rs/forge-std
