@@ -4,17 +4,20 @@ import {useRouter} from 'next/router';
 
 import styles from '../styles/Pages.module.css';
 import '../styles/globals.css';
+import UserProvider from '../contexts/user';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   return (<>
     <NextUIProvider navigate={router.push}>
-      {/* <Header/> */}
       <div className={styles.container}>
-        <Component {...pageProps} />
+        <UserProvider>
+          {/* <Header/> */}
+          <Component {...pageProps} />
+          {/* <Footer /> */}
+        </UserProvider>
       </div>
-      {/* <Footer /> */}
     </NextUIProvider>
   </>);
 }
