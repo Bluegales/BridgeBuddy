@@ -9,11 +9,9 @@ dotenv.config()
 
 async function main() {
 
-    // const RPC_URL = 'https://alfajores-forno.celo-testnet.org'
-    const RPC_URL = 'https://eth-goerli.public.blastapi.io'
-    // const RPC_URL = 'https://base-goerli.publicnode.com'
-    const SAFE_ADDRES = '0x39E9a7Edf20e3D6a014bB7dc2e882D319f15dF3E'
-    const MODULE = '0xa8373756FFfB218C47Ba2D7848E21a369b92C633'
+    const RPC_URL = 'https://base-goerli.publicnode.com'
+    const SAFE_ADDRES = '0x29bD8B2FCF7d0C215576f5dB4E7b065b45F0744d'
+    const MODULE = '0x62BB0ac88b09D1C2554c491999e8eaBa5E2D09D5'
     const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
     const owner1Signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
     const ethAdapter = new EthersAdapter({
@@ -41,7 +39,7 @@ async function main() {
 // | zkSync Era Mainnet           | [https://safe-transaction-zksync.safe.global](https://safe-transaction-zksync.safe.global/)              |
 
 
-    const txServiceUrl = 'https://safe-transaction-goerli.safe.global/'
+    const txServiceUrl = 'https://safe-transaction-base-testnet.safe.global/'
     const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapter })
 
     const contractABI = 

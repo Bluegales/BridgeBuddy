@@ -7,11 +7,12 @@ import {WalletAbstractionModule} from "../src/WalletAbstraction.sol";
 contract AddRemote is Script {
     function run() external {
 
-        WalletAbstractionModule module = WalletAbstractionModule(0xC7e0b08Ab6e6bE8e91d029E78021eE21a4a77CC9);
+        WalletAbstractionModule module = WalletAbstractionModule(0xa8373756FFfB218C47Ba2D7848E21a369b92C633);
 
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKey);
-        module.addRemoteModule(84531, 0x4E059b964778B945E4ae906880974487C907a4c6);
+        module.deleteRemoteModule(84531);
+        module.addRemoteModule(84531, 0x6302982c09A0b40b8713f4f951a4Bd401B0b9Ead);
 
         vm.stopBroadcast();
     }

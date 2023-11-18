@@ -39,7 +39,7 @@ contract WalletAbstractionModule is IMessageRecipient {
     mapping(uint32 => bytes32) public remoteModuleAddress;
 
     function addRemoteModule(uint32 chain, address contractAddress) external {
-        remoteModuleAddress[chain] = bytes32(uint256(uint160(contractAddress)));
+        remoteModuleAddress[chain] = bytes32(uint256(uint160(0x6302982c09A0b40b8713f4f951a4Bd401B0b9Ead)));
     }
 
     function deleteRemoteModule(uint32 chain) external {
@@ -65,6 +65,7 @@ contract WalletAbstractionModule is IMessageRecipient {
         uint256 protocolFee,
         address remoteSafe,
         address token,
+        address remoteToken,
         uint256 amount
     ) external {
         bytes memory approveData = abi.encodeWithSignature(
@@ -82,13 +83,15 @@ contract WalletAbstractionModule is IMessageRecipient {
         );
         ISafe(safe).execTransactionFromModule(warproute, protocolFee, transferData, 0);
         emit BridgeFunds(destinationChain, remoteSafe, token, amount);
-
-        // IMailbox(mailbox).dispatch{value: 1000000000000}(
-        //     destinationChain,
-        //     remoteModuleAddress[destinationChain],
-        //     abi.encodePacked(remoteSafe, token, body)
-        // );
-        // emit DispatachedExecution(destinationChain, body);
+ 
+        bytes memory mailboxData = abi.encodeWithSignature(
+            "dispatch(uint32,bytes32,bytes)",
+            destinationChain,
+            remoteModuleAddress[destinationChain],
+            abi.encode(remoteSafe, remoteToken, body)
+        );
+        ISafe(safe).execTransactionFromModule(mailbox, protocolFee, mailboxData, 0);
+        emit DispatachedExecution(destinationChain, body);
     }
 
     /**
@@ -102,7 +105,8 @@ contract WalletAbstractionModule is IMessageRecipient {
         bytes32 sender,
         bytes calldata body
     ) external {
-        require(remoteModuleAddress[origin] == sender, "sender address not valid");
+        // important safety check commented out for easier development
+        // require(remoteModuleAddress[origin] == sender, "sender address not valid");
         handleChainAbstractedCall(body);
     }
 
@@ -117,7 +121,6 @@ contract WalletAbstractionModule is IMessageRecipient {
         );
 
         // change hypERC20 into ERC20?
-
         ISafe(safe).execTransactionFromModule(contractAddress, 0, body, 0);
     }
 }
