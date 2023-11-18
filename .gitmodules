@@ -1,0 +1,3 @@
+[submodule "safe_module/lib/forge-std"]
+	path = safe_module/lib/forge-std
+	url = git@github.com:foundry-rs/forge-std.git
