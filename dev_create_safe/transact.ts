@@ -22,7 +22,6 @@ async function main() {
     const safeSdk = await Safe.create({ ethAdapter, safeAddress: SAFE_ADDRES })
 
 
-
     const txServiceUrl = 'https://safe-transaction-goerli.safe.global'
     const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapter })
 

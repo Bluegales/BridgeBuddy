@@ -1,1 +1,8 @@
+.DS_Store
+/chromeExtension/.next
+/chromeExtension/node_modules
+/chromeExtension/.env
+/chromeExtension/extension
+/chromeExtension/extension.zip
+/chromeExtension/.env.local
 **/.env
