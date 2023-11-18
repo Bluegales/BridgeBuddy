@@ -1,9 +1,16 @@
 {
 	"hyperlane": {
 		"WETH": {
-			"goerli": "0x0fEe1a117d942421886E337ec6c25a6EE7643060",
-			"basegoerli": "0x4982051409D3F7f1C37d9f1e544EF6c6e8557148",
-			"alfajores": "0x4982051409D3F7f1C37d9f1e544EF6c6e8557148"
+			"goerli": {
+				"router": "0x0fEe1a117d942421886E337ec6c25a6EE7643060",
+				"collateral": "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6"
+			},
+			"basegoerli": {
+				"router": "0x4982051409D3F7f1C37d9f1e544EF6c6e8557148"
+			},
+			"alfajores": {
+				"router": "0x4982051409D3F7f1C37d9f1e544EF6c6e8557148"
+			}
 		},
 		"USDC": {
 			"goerli": "0x55ab612D1247702ebE46468B721917fC9B099186",
@@ -17,3 +24,4 @@
 		"alfajores": "0x5679eb62776bBbf7f14bCd606b5BB13C2514dFef"
 	}
 }
+ 
