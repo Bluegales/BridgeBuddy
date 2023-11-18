@@ -1,0 +1,5 @@
+{
+	"goerli": "https://rpc.goerli.eth.gateway.fm",
+	"alfajores": "https://alfajores-forno.celo-testnet.org",
+	"basegoerli": "https://base-goerli.publicnode.com"
+}

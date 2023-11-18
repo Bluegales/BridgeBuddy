@@ -5,3 +5,4 @@
 /chromeExtension/extension
 /chromeExtension/extension.zip
 /chromeExtension/.env.local
+**/.env

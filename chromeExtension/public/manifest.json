@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "BridgeBuddy",
+  "short_name": "BridgeBuddy",
+  "version": "0.4.2",
+  "description": "Chain abstracted crypto Wallet",
+  "icons": {
+    "192": "/icons/icon192.png"
+  },
+  "permissions": [
+		"activeTab",
+		"alarms",
+		"clipboardWrite",
+		"notifications",
+		"scripting",
+		"storage",
+		"unlimitedStorage",
+		"webRequest"
+	],
+  "background": {
+	  "service_worker": "background.js"
+	},
+	"content_security_policy": {
+		"extension_pages": "script-src 'self'; object-src 'self'; frame-ancestors 'none';"
+	},
+  "web_accessible_resources": [
+    {
+      "resources": ["index.html"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "content_scripts": [
+		{
+		  "matches": ["file://*/*", "http://*/*", "https://*/*"],
+		  "js": ["content.js"],
+		  "run_at": "document_start",
+		  "all_frames": true
+		}
+	],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "index.html"
+  },
+  "minimum_chrome_version": "88",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuSRsLi0NDzs/JIvm5gA/Ps8PddE0QF/ED7hnmvhFEVDhzp1ox0OnyrBwvyhIAac35MZtuTHDm2Z5d6Lm3rFG6O4wU5zeD15j04aHX4HL+rIf0dJjjFJz32/Sf77PTwiHfqOTK39by7c4v2MmMYRhBuJ2aSNsKPReEZu+JaiMriM12jZPXsM2SuXvNVz5DQAIDBBdcn78SIDWz3UYrOEK+6+QqKb7e+5Pb1DTk+o9GnzPAytKg1Gp/7Q+r1c/2GVv9zblIrtgZSEcx/1TSy2ec/bRwD1DamK0MwOx02bAL3xBvNQhvt0GkV6ZegCoO4CHTMheaKO/VjyrTpaee67UeQIDAQAB"
+}
