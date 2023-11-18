@@ -20,8 +20,6 @@ contract WalletAbstractionModule is IMessageRecipient {
         "AllowanceTransfer(address safe,address token,address to,uint96 amount,address paymentToken,uint96 payment,uint16 nonce)"
     );
 
-    IMailbox public constant MAILBOX = IMailbox(0xCC737a94FecaeC165AbCf12dED095BB13F037685);
-    address public constant WARPROUTE = 0xCC737a94FecaeC165AbCf12dED095BB13F037685;
     mapping(bytes32 => bool) public destination;
 
     // chain -> this contract
@@ -48,20 +46,22 @@ contract WalletAbstractionModule is IMessageRecipient {
     function bridgeExecute(
         address safe,
         uint32 destinationChain,
+        address warproute,
+        address mailbox,
         bytes calldata body,
         address recipient,
         address token,
         uint256 amount
     ) external {
-        bytes memory approveData = abi.encodeWithSignature("approve(address,uint256)", WARPROUTE, amount);
+        bytes memory approveData = abi.encodeWithSignature("approve(address,uint256)", warproute, amount);
         ISafe(safe).execTransactionFromModule(token, 0, approveData, 0);
 
         bytes memory transferData =
             abi.encodeWithSignature("transferRemote(uint32,bytes32,uint256)", destinationChain, recipient, amount);
-        ISafe(safe).execTransactionFromModule(WARPROUTE, 0, transferData, 0);
+        ISafe(safe).execTransactionFromModule(warproute, 0, transferData, 0);
         emit BridgeFunds(destinationChain, recipient, token, amount);
 
-        MAILBOX.dispatch(destinationChain, chainDestination[destinationChain], body);
+        IMailbox(mailbox).dispatch(destinationChain, chainDestination[destinationChain], body);
         emit DispatachedExecution(destinationChain, body);
     }
 
