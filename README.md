@@ -34,4 +34,8 @@ For providing a seamless user experience, we've integrated Safe Account Abstract
 To use this wallet, you'll need to install it as a Chrome extension.
 
 - Build the extension:
+````
+cd chromeExtension
+npm run build
+````
 - Enable Chrome Developer Mode to install the extension.
