@@ -93,7 +93,11 @@ const MainPage = () => {
           <CoinItem loading={true}/>
           <CoinItem loading={true}/>
         </>)}
-        {!loading &&Object.keys(balances).map((key) => (<CoinItem key={key} name={key} balance={balances[key]} imgsrc="/icons/icon192.png"/>))}
+        {!loading &&Object.keys(balances).map((key) => (<CoinItem key={key} name={key} balance={balances[key]} imgsrc={(() => {
+          if (key === "USDC") return "https://cryptologos.cc/logos/usd-coin-usdc-logo.png";
+          if (key === "WETH") return "https://cryptologos.cc/logos/ethereum-eth-logo.png";
+          return "/icons/icon192.png";
+        })()}/>))}
 		  </ScrollShadow>
       {/* <Button onClick={() => bridgeFunds(10, "WETH", "USDC", privateKey)}>
         Bridge
