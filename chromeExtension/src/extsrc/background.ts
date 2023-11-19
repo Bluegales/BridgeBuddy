@@ -1,3 +1,5 @@
+import { WalletProvider } from "./helpers/provider";
+
 /* ---------------------------- Register Injector --------------------------- */
 const registerInPageContentScript = async () => {
 	try {
@@ -13,3 +15,6 @@ const registerInPageContentScript = async () => {
 	}
 }
 registerInPageContentScript();
+
+/* ---------------------------------- Main ---------------------------------- */
+const walletProvider = new WalletProvider();

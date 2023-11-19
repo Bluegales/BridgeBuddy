@@ -28,10 +28,20 @@ interface Props {
 const UserProvider: NextPage<Props> = ({ children }) => {
 	const [privateKey, setPrivateKey] = useState<null | string>(null);
 	const [password, setPassword] = useState<null | string>(null);
+	const [routePage, setRoutePage] = useState<null | string>(null);
 	const [locked, setLocked] = useState<boolean>(true);
 	const [loading, setLoading] = useState(true);
 	const { ldata, sdata } = useStorage();
 	const router = useRouter();
+
+	if (routePage === null) {
+		const path = router.asPath.replace(".html", "").replace("/index", "/");
+		if (path === "/login") {
+			setRoutePage("/");
+		} else {
+			setRoutePage(path);
+		}
+	}
 
 	useEffect(() => {
 		(async () => {
@@ -57,7 +67,7 @@ const UserProvider: NextPage<Props> = ({ children }) => {
 			return;
 		}
 		if (locked) router.replace("/login");
-		if (!locked) router.replace("/");
+		if (!locked) router.replace(routePage);
 	}, [locked]);
 
 	const setData = async (privateKey: string = "", password: string = "") => {

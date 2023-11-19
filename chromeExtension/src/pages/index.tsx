@@ -1,8 +1,8 @@
 import Safe, { EthersAdapter } from "@safe-global/protocol-kit";
 import WalletAddress from "../components/WalletAddress";
-import { getChainData, getUrl } from "../helper/utils";
+import { bridgeFunds, getChainData, getUrl } from "../helper/utils";
 import IconButton from "../components/IconButton";
-import { ScrollShadow } from "@nextui-org/react";
+import { Button, ScrollShadow } from "@nextui-org/react";
 import CoinItem from "../components/TokenItem";
 import SafeApiKit from "@safe-global/api-kit";
 import { useEffect, useState } from "react";
@@ -21,7 +21,8 @@ const MainPage = () => {
 	const [chainData, setChainData] = useState({
 		rpcs: {},
 		accounts: {},
-		tokens: {}
+		tokens: {},
+    modules: {}
 	});
   const { privateKey, setLocked, setData } = useUser();
 
@@ -32,12 +33,12 @@ const MainPage = () => {
 		setBalances(await Object.keys(chainData.tokens).reduce(async (resultPromise, token) => {
 		  var result = await resultPromise;
 		  result[token] = await Object.keys(chainData.tokens[token]).reduce(async (accumulatedPromise, contractChain) => {
-			const accumulated = await accumulatedPromise;
-	
-			const signer = new ethers.Wallet(privateKey, chainData.rpcs[contractChain]);
-			const contract = new ethers.Contract(chainData.tokens[token][contractChain]["collateral"], erc20Abi, signer)
-	
-			return accumulated + parseFloat(ethers.utils.formatUnits(await contract.balanceOf(chainData.accounts[contractChain]), await contract.decimals()));
+        const accumulated = await accumulatedPromise;
+
+        const signer = new ethers.Wallet(privateKey, chainData.rpcs[contractChain]);
+        const contract = new ethers.Contract(chainData.tokens[token][contractChain]["collateral"], erc20Abi, signer)
+    
+        return accumulated + parseFloat(ethers.utils.formatUnits(await contract.balanceOf(chainData.accounts[contractChain]), await contract.decimals()));
 		  }, Promise.resolve(0));
 		  return result;
 		}, Promise.resolve({})));
@@ -60,46 +61,6 @@ const MainPage = () => {
 	useEffect(() => {
 	loadBalances();
 	}, [chainData]);
-
-	const buttonFunc = async () => {
-		const RPC_URL = 'https://eth-goerli.public.blastapi.io'
-		const SAFE_ADDRES = '0xea49182d6557F8BD20Fe8c56955b337De404166C'
-		const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
-		const owner1Signer = new ethers.Wallet(privateKey, provider)
-		const ethAdapter = new EthersAdapter({
-			ethers,
-			signerOrProvider: owner1Signer
-		})
-		const safeSdk = await Safe.create({ ethAdapter, safeAddress: SAFE_ADDRES })
-    await safeSdk.getBalance()
-	
-		const txServiceUrl = 'https://safe-transaction-goerli.safe.global'
-		const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapter })
-	
-		const safeTransaction = await safeSdk.createTransaction({ safeTransactionData: {
-		  to: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
-		  data: '0x',
-		  value: ethers.utils.parseUnits('0.0005', 'ether').toString()
-		}});
-	
-		const safeTxHash = await safeSdk.getTransactionHash(safeTransaction);
-		const senderSignature = await safeSdk.signTransactionHash(safeTxHash);
-		const safeAddress = await safeSdk.getAddress();
-	
-		await safeService.proposeTransaction({
-		  safeAddress,
-		  safeTransactionData: safeTransaction.data,
-		  safeTxHash,
-		  senderAddress: await owner1Signer.getAddress(),
-		  senderSignature: senderSignature.data,
-		})
-	
-		const safeTransaction2 = await safeService.getTransaction(safeTxHash)
-		const executeTxResponse = await safeSdk.executeTransaction(safeTransaction2)
-		const receipt = await executeTxResponse.transactionResponse?.wait()
-	
-		console.log(receipt);
-	}
 
 	return (<>
 		<header className="flex justify-between items-center text-black px-3 pt-3">
@@ -134,6 +95,9 @@ const MainPage = () => {
         </>)}
         {!loading &&Object.keys(balances).map((key) => (<CoinItem key={key} name={key} balance={balances[key]} imgsrc="/icons/icon192.png"/>))}
 		  </ScrollShadow>
+      {/* <Button onClick={() => bridgeFunds(10, "WETH", "USDC", privateKey)}>
+        Bridge
+      </Button> */}
 		</main>
 	</>);
 }

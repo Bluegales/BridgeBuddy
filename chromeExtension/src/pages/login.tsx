@@ -1,6 +1,7 @@
 import { Avatar, Input } from "@nextui-org/react";
 import { useUser } from "../contexts/user";
 import React, { useState } from "react";
+import Head from "next/head";
 
 const EyeVisible = ({className = ""}) => (
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={"w-6 h-6 " + className}>
@@ -18,9 +19,8 @@ const EyeSlashVisible = ({className = ""}) => (
 )
 
 interface LoginPageProps {
-	onLogin: () => void;
 }
-const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
+const LoginPage: React.FC<LoginPageProps> = () => {
 	const { setLocked, password } = useUser();
 	const [isVisible, setIsVisible] = useState(false);
 	const [error, setError] = useState("");
@@ -39,7 +39,10 @@ const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
 		setLocked(false);
 	}
 
-	return (
+	return (<>
+		<Head>
+        	<title>BridgeWallet Login</title>
+      	</Head>
 		<main className="flex flex-col gap-5 items-center justify-center text-black h-full p-3">
 			<Avatar radius="full" src="/icons/icon192.png" className="w-20 h-20" />
 			<h1 className="text-2xl font-extrabold">BridgeWallet</h1>
@@ -62,6 +65,6 @@ const LoginPage: React.FC<LoginPageProps> = ({onLogin}) => {
 				type={isVisible ? "text" : "password"}
 			/>
 		</main>
-	)
+	</>)
 }
 export default LoginPage;

@@ -1,1 +1,4 @@
-console.log("Message from inject.js")
+import { relayer } from "./helpers/backgroundConnector";
+
+/* ----------------------------- Message Relayer ---------------------------- */
+relayer();
