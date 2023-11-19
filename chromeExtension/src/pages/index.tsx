@@ -1,13 +1,12 @@
+import { bridgeFunds, getChainData, getUrl } from "../helper/utils";
 import Safe, { EthersAdapter } from "@safe-global/protocol-kit";
 import WalletAddress from "../components/WalletAddress";
-import { bridgeFunds, getChainData, getUrl } from "../helper/utils";
 import IconButton from "../components/IconButton";
-import { Button, ScrollShadow } from "@nextui-org/react";
+import { ScrollShadow } from "@nextui-org/react";
 import CoinItem from "../components/TokenItem";
-import SafeApiKit from "@safe-global/api-kit";
 import { useEffect, useState } from "react";
-import { ethers } from "ethers";
 import { useUser } from "../contexts/user";
+import { ethers } from "ethers";
 
 /* -------------------------------------------------------------------------- */
 /*                                  Component                                 */
