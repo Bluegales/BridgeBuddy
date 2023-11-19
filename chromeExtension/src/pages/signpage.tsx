@@ -31,7 +31,7 @@ const SignPage: React.FC = () => {
 
 	const onApprove = async () => {
 		setLoading(true);
-		await bridgeFunds(10, "WETH", "USDC", privateKey);
+		await bridgeFunds(1, "WETH", "USDC", privateKey);
 		approveData.response();
 		setLoading(false);
 		window.close();

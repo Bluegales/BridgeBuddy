@@ -41,10 +41,10 @@ const useStorage = () => {
 const getUrl = (path: string) => (chrome !== undefined && chrome.runtime !== undefined) ? chrome.runtime.getURL(path) : `http://localhost:3000${path}`;
 
 const getChainData = async () => {
-	const rpcs = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/main/info/rpcs.json").then(async (response) => response.json());
-	const accounts = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/main/info/accounts.json").then(async (response) => response.json());
-	const tokens = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/main/info/tokens.json").then(async (response) => response.json());
-	const modules = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/main/info/modules.json").then(async (response) => response.json());
+	const rpcs = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/mainnet/info_mainnet/rpcs.json").then(async (response) => response.json());
+	const accounts = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/mainnet/info_mainnet/accounts.json").then(async (response) => response.json());
+	const tokens = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/mainnet/info_mainnet/tokens.json").then(async (response) => response.json());
+	const modules = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/mainnet/info_mainnet/modules.json").then(async (response) => response.json());
 	for (var key in rpcs) {
 		rpcs[key] = new ethers.providers.JsonRpcProvider(rpcs[key]);
 	}
@@ -182,31 +182,31 @@ const getChainData = async () => {
 
 const bridgeFunds = async (amount: number, inCoin: string, outCoin: string, privateKey: string) => {
 	const chainData = await getChainData();
-	const erc20Abi = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/main/info/erc20_abi.json").then((response) => response.json());
-	const abstractionAbi = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/main/info/abstraction_abi.json").then((response) => response.json());
+	const erc20Abi = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/mainnet/info/erc20_abi.json").then((response) => response.json());
+	const abstractionAbi = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/mainnet/info/abstraction_abi.json").then((response) => response.json());
 
-	const provider = chainData.rpcs["goerli"];
+	const provider = chainData.rpcs["celo"];
 	const signer = new ethers.Wallet(privateKey, provider);
 
 	let swapIface = new ethers.utils.Interface(["function swap(address,address,uint256,uint256)"]);
 	const encodedSwapData = swapIface.encodeFunctionData("swap", [
-		chainData.tokens["WETH"]["basegoerli"]["collateral"],
-		chainData.tokens["USDC"]["basegoerli"]["collateral"],
+		chainData.tokens["WETH"]["base"]["collateral"],
+		chainData.tokens["USDC"]["base"]["collateral"],
 		amount,
-		1000000
+		300000
 	]);
 
-	const abstractContract = new ethers.Contract(chainData.modules["goerli"], abstractionAbi, signer);
+	const abstractContract = new ethers.Contract(chainData.modules["celo"], abstractionAbi, signer);
 	const result = await abstractContract.bridgeExecute(
-		chainData.accounts["goerli"],
-		"84531",
-		chainData.tokens["WETH"]["goerli"]["router"],
-		"0x49cfd6Ef774AcAb14814D699e3F7eE36Fdfba932", //mailbox
+		chainData.accounts["celo"],
+		"8453",
+		chainData.tokens["WETH"]["celo"]["collateral"],
+		"0x50da3B3907A08a24fe4999F4Dcf337E8dC7954bb", //mailbox
 		encodedSwapData,
 		"10000000000000000", // protocolfee
-		"0x29bD8B2FCF7d0C215576f5dB4E7b065b45F0744d", // remoteSafe
-		"0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6", // token
-		"0x86EBd73E09D41332a0e153D800ebdA27274E3280", // remotetoken
+		"0x87A161632b9C171de302f96569D4c72e53654BF7", // remoteSafe
+		"0x4200000000000000000000000000000000000006", // token
+		"0x02e1f5CBd47e9EE3Da10A5A159849cbbCB4b1ee0", // remotetoken
 		amount
 	, {gasLimit: 1000000});
 	console.log(await signer?.provider.waitForTransaction(result.hash));

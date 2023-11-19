@@ -23,9 +23,9 @@ const Home = () => {
 
       try {
         console.log("swap", parseFloat(usdcRef.current?.value || "0"), parseFloat(wethRef.current?.value || "0"));
-        const swapInfo = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/main/info/swap.json").then((response) => response.json());
-        const erc20Abi = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/main/info/erc20_abi.json").then((response) => response.json());
-        const swapAbi = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/main/info/swap_abi.json").then((response) => response.json());
+        const swapInfo = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/mainnet/info_mainnet/swap.json").then((response) => response.json());
+        const erc20Abi = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/mainnet/info/erc20_abi.json").then((response) => response.json());
+        const swapAbi = await fetch("https://raw.githubusercontent.com/Bluegales/BridgeBuddy/mainnet/info/swap_abi.json").then((response) => response.json());
 
         const token1Contract = new ethers.Contract(inAddress, erc20Abi, signer);
         const approveResult = await token1Contract.approve(swapInfo["address"], ethers.utils.parseUnits(wethRef.current?.value || "0", await token1Contract.decimals()));

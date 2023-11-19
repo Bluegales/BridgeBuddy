@@ -14,7 +14,7 @@ import { ethers } from "ethers";
 
 const MainPage = () => {
   const [balances, setBalances] = useState({} as {[token: string]: number});
-  const [goerliAddress, setGoerliAddress] = useState("0xea49182d6557F8BD20Fe8c56955b337De404166C");
+  const [goerliAddress, setGoerliAddress] = useState("0xad197228931e8950b8c355B3E2B2969fdDEb14C2");
   const [ethbalance, setEthBalance] = useState<number>(0);
 	const [loading, setLoading] = useState(true);
 	const [chainData, setChainData] = useState({
@@ -42,10 +42,10 @@ const MainPage = () => {
 		  return result;
 		}, Promise.resolve({})));
 
-		const owner1Signer = new ethers.Wallet(privateKey, new ethers.providers.JsonRpcProvider("https://eth-goerli.public.blastapi.io"))
+		const owner1Signer = new ethers.Wallet(privateKey, chainData.rpcs["celo"])
 		const ethAdapter = new EthersAdapter({ethers, signerOrProvider: owner1Signer})
 		const safeSdk = await Safe.create({ ethAdapter, safeAddress: goerliAddress })
-    setEthBalance(parseFloat(ethers.utils.formatUnits(await safeSdk.getBalance(), 18)));
+    	setEthBalance(parseFloat(ethers.utils.formatUnits(await safeSdk.getBalance(), 18)));
 		setLoading(false);
 	}
 

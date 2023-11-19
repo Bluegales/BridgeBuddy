@@ -1,21 +1,21 @@
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5/react';
 
-const basegoerli = {
-  chainId: 84531,
-  name: 'Base GOERLI',
+const base = {
+  chainId: 8453,
+  name: 'Base',
   currency: 'ETH',
-  explorerUrl: 'https://goerli.basescan.org/',
-  rpcUrl: 'https://base-goerli.publicnode.com/'
+  explorerUrl: 'https://basescan.org/',
+  rpcUrl: 'https://1rpc.io/base'
 }
 const metadata = {
   name: 'BridgeWallet Exchange',
   description: 'Small exchange for BridgeWallet',
-  url: 'http://http://localhost:3000/',
+  url: 'http://localhost:3000/',
   icons: ['https://avatars.mywebsite.com/']
 }
 createWeb3Modal({
   ethersConfig: defaultConfig({ metadata }),
-  chains: [basegoerli],
+  chains: [base],
   projectId: process.env.NEXT_PUBLIC_WEB3MODAL_ID || '',
 })
 

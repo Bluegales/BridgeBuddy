@@ -46,7 +46,7 @@ export class InpageProvider extends EventEmitter implements CustomWallet {
 
 /* ----------------------------- WalletProvider ----------------------------- */
 export class WalletProvider extends EventEmitter implements CustomWallet {
-	_chainId: string = "0x14a33";
+	_chainId: string = "0x2105";
 	_accounts: string[] = ["0xea49182d6557F8BD20Fe8c56955b337De404166C"];
 
 	constructor() {
