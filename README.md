@@ -23,9 +23,11 @@ For providing a seamless user experience, we've integrated Safe Account Abstract
 - To start, you'll need a Safe Wallet on every chain with which the wallet will interact.
 - Wallets can be created through the [Safe Global App](https://app.safe.global/welcome).
 
-#### 2.2. Deploy Custom Module **(optional)**
+#### 2.2. Deploy Custom Module
 
 **Our own deployed modules on goerli, basegoerli, celo and base can be used instead. The addresses can be found in /info/modules.json and /info_mainnet/modules.json**
+
+**If using our modules they only needed to be added to the safes**
 - Once the wallets are set up, you need to integrate custom logic into each to enable interchain function calls.
 - Our custom module developed during the hackathon is available at `safe_module/src/WalletAbstraction.sol`.
 - This module must be manually deployed to each Safe Account on every chain. Afterwards, add it utilising the dev_create_safe/add_module_*.ts files
