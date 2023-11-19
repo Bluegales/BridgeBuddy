@@ -39,3 +39,7 @@ cd chromeExtension
 npm run build
 ````
 - Enable Chrome Developer Mode to install the extension.
+
+
+## Deployed Contracts
+All deployed contracts can be found in various jsons in the info and info_mainnet folders.
