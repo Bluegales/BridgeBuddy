@@ -9,11 +9,11 @@ dotenv.config()
 
 async function main() {
 
-    // const RPC_URL = 'https://alfajores-forno.celo-testnet.org'
     const RPC_URL = 'https://eth-goerli.public.blastapi.io'
-    // const RPC_URL = 'https://base-goerli.publicnode.com'
     const SAFE_ADDRES = '0x39E9a7Edf20e3D6a014bB7dc2e882D319f15dF3E'
     const MODULE = '0x62BB0ac88b09D1C2554c491999e8eaBa5E2D09D5'
+    const txServiceUrl = 'https://safe-transaction-goerli.safe.global/'
+
     const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
     const owner1Signer = new ethers.Wallet(process.env.OWNER_1_PRIVATE_KEY!, provider)
     const ethAdapter = new EthersAdapter({
@@ -22,26 +22,6 @@ async function main() {
     })
     const safeSdk = await Safe.create({ ethAdapter, safeAddress: SAFE_ADDRES })
 
-
-//     | Network                      | Host                                                                                                     |
-// | ---------------------------- | -------------------------------------------------------------------------------------------------------- |
-// | Arbitrum                     | [https://safe-transaction-arbitrum.safe.global](https://safe-transaction-arbitrum.safe.global/)          |
-// | Aurora                       | [https://safe-transaction-aurora.safe.global](https://safe-transaction-aurora.safe.global/)              |
-// | Avalanche                    | [https://safe-transaction-avalanche.safe.global](https://safe-transaction-avalanche.safe.global/)        |
-// | Base                         | [https://safe-transaction-base.safe.global](https://safe-transaction-base.safe.global)                   |
-// | Base Goerli                  | [https://safe-transaction-base-testnet.safe.global](https://safe-transaction-base-testnet.safe.global/)  |
-// | BNB Smart Chain              | [https://safe-transaction-bsc.safe.global](https://safe-transaction-bsc.safe.global/)                    |
-// | Celo                         | [https://safe-transaction-celo.safe.global](https://safe-transaction-celo.safe.global/)                  |
-// | Ethereum Mainnet             | [https://safe-transaction-mainnet.safe.global](https://safe-transaction-mainnet.safe.global/)            |
-// | Gnosis Chain                 | [https://safe-transaction-gnosis-chain.safe.global](https://safe-transaction-gnosis-chain.safe.global/)  |
-// | Goerli                       | [https://safe-transaction-goerli.safe.global](https://safe-transaction-goerli.safe.global/)              |
-// | Optimism                     | [https://safe-transaction-optimism.safe.global](https://safe-transaction-optimism.safe.global/)          |
-// | Polygon                      | [https://safe-transaction-polygon.safe.global](https://safe-transaction-polygon.safe.global/)            |
-// | Polygon zkEVM                | [https://safe-transaction-zkevm.safe.global](https://safe-transaction-zkevm.safe.global/)                |
-// | zkSync Era Mainnet           | [https://safe-transaction-zksync.safe.global](https://safe-transaction-zksync.safe.global/)              |
-
-
-    const txServiceUrl = 'https://safe-transaction-goerli.safe.global/'
     const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapter })
 
     const contractABI = 
