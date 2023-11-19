@@ -11,8 +11,8 @@ Below are the steps to set up the wallet:
 #### 1.1. Deploy HypERC20 Interchain Tokens
 
 - This wallet employs Hyperlane HypERC20 Tokens for bridging operations.
-- You have the option to deploy these tokens using the Hyperlane CLI. Alternatively, you can use the tokens that we deployed.
-- Find the addresses of these tokens in `info/tokens.json`.
+- You have the option to deploy these tokens using the Hyperlane CLI.
+- Alternatively, you can use the tokens that we deployed. Find the addresses of these tokens in `info/tokens.json`.
 
 ### 2. Safe Core
 
