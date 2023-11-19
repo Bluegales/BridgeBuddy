@@ -2,7 +2,7 @@
 
 ## General
 
-This project is a EVM-compatible Browser Wallet, designed to enhance user experience by abstracting the complexities associated with managing assets across various EVM-compatible chains. It consolidates assets from different chains in a single interface, enabling seamless asset management. The wallet uses account abstraction to bridge funds automatically as needed for transactions, providing a simplified, unified view of all assets.
+This project is an EVM-compatible Browser Wallet, designed to enhance user experience by abstracting the complexities associated with managing assets across various EVM-compatible chains. It consolidates assets from different chains in a single interface, enabling seamless asset management. The wallet uses account abstraction to bridge funds automatically as needed for transactions, providing a simplified, unified view of all assets.
 
 Below are the steps to set up the wallet:
 
