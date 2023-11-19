@@ -1,30 +1,37 @@
-# BridgeBuddy
-Chain abstracted wallet
+# Project Setup Guide
 
+## General
 
-## Testing
+This project is a EVM-compatible Browser Wallet, designed to enhance user experience by abstracting the complexities associated with managing assets across various EVM-compatible chains. It consolidates assets from different chains in a single interface, enabling seamless asset management. The wallet uses account abstraction to bridge funds automatically as needed for transactions, providing a simplified, unified view of all assets.
 
-0x818024AB29Bd978a28ff4CE2325a79ca301F78f7
+Below are the steps to set up the wallet:
 
+### 1. Hyperlane
 
-hyperlane:
-  WETH HypERC20
-    goerli
-      0x0fEe1a117d942421886E337ec6c25a6EE7643060
-    basegoerli
-      0x4982051409D3F7f1C37d9f1e544EF6c6e8557148
-    alfajores
-      0x4982051409D3F7f1C37d9f1e544EF6c6e8557148
-  USDC HypERC20
-    goerli
-      0x55ab612D1247702ebE46468B721917fC9B099186
-    basegoerli
-      0x1360c34ae91f3A0ee514FcFf31834901552260f3
-    alfajores
-      0xF2B12eF7A4F1bc73A092AeFc6256D66B6cbE074C
+#### 1.1. Deploy HypERC20 Interchain Tokens
 
-safe: 
+- This wallet employs Hyperlane HypERC20 Tokens for bridging operations.
+- You have the option to deploy these tokens using the Hyperlane CLI. Alternatively, you can use the pre-deployed tokens from our ETHGlobal Istanbul Hackathon.
+- Find the addresses of these tokens in `info/tokens.json`.
 
-- gor:0xea49182d6557F8BD20Fe8c56955b337De404166C
-- base-gor:base-gor:0x29bD8B2FCF7d0C215576f5dB4E7b065b45F0744d
-- celo-alf:0x5679eb62776bBbf7f14bCd606b5BB13C2514dFef
+### 2. Safe Core
+
+For providing a seamless user experience, we've integrated Safe Account Abstraction. This feature allows for complex interchain transactions with a single user authorization.
+
+#### 2.1. Deploy Safe Wallet
+
+- To start, you'll need a Safe Wallet on every chain with which the wallet will interact.
+- Wallets can be created through the [Safe Global App](https://app.safe.global/welcome).
+
+#### 2.2. Deploy Custom Module
+
+- Once the wallets are set up, you need to integrate custom logic into each to enable interchain function calls.
+- Our custom module developed during the hackathon is available at `safe_module/src/WalletAbstraction.sol`.
+- This module must be manually deployed to each Safe Account on every chain. Afterwards, add it through the Safe frontend interface.
+
+### 3. Set Up Extension
+
+To use this wallet, you'll need to install it as a Chrome extension.
+
+- Build the extension:
+- Enable Chrome Developer Mode to install the extension.
