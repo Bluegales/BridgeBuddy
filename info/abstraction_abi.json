@@ -134,9 +134,9 @@
 				"type": "uint32"
 			},
 			{
-				"internalType": "bytes32",
+				"internalType": "address",
 				"name": "contractAddress",
-				"type": "bytes32"
+				"type": "address"
 			}
 		],
 		"name": "addRemoteModule",
@@ -172,6 +172,11 @@
 				"type": "bytes"
 			},
 			{
+				"internalType": "uint256",
+				"name": "protocolFee",
+				"type": "uint256"
+			},
+			{
 				"internalType": "address",
 				"name": "remoteSafe",
 				"type": "address"
@@ -179,6 +184,11 @@
 			{
 				"internalType": "address",
 				"name": "token",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "remoteToken",
 				"type": "address"
 			},
 			{
