@@ -7,7 +7,7 @@ import {WalletAbstractionModule} from "../src/WalletAbstraction.sol";
 contract Swap is Script {
     function run() external {
 
-        WalletAbstractionModule module = WalletAbstractionModule(0xa8373756FFfB218C47Ba2D7848E21a369b92C633);
+        WalletAbstractionModule module = WalletAbstractionModule(0x6BB32F9dBcBe0364EA99b8B0fE47b0fFEE0e5Ac0);
 
         uint256 amount = 1;
 
