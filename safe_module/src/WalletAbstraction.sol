@@ -39,7 +39,7 @@ contract WalletAbstractionModule is IMessageRecipient {
     mapping(uint32 => bytes32) public remoteModuleAddress;
 
     function addRemoteModule(uint32 chain, address contractAddress) external {
-        remoteModuleAddress[chain] = bytes32(uint256(uint160(0x6302982c09A0b40b8713f4f951a4Bd401B0b9Ead)));
+        remoteModuleAddress[chain] = bytes32(uint256(uint160(contractAddress)));
     }
 
     function deleteRemoteModule(uint32 chain) external {
