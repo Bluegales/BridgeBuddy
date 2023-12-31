@@ -1,3 +1,7 @@
+## CREATED FOR ETHGLOBAL ISTANBUL
+
+https://ethglobal.com/showcase/bridgebuddy-36te1
+
 # Project Setup Guide
 
 ## General
