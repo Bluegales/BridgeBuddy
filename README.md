@@ -2,6 +2,8 @@
 
 https://ethglobal.com/showcase/bridgebuddy-36te1
 
+<img width="404" alt="image" src="https://github.com/patrick-hacks/BridgeBuddy/assets/72362902/8f1bd053-3da6-4d38-856b-b4625c2af139">
+
 # Project Setup Guide
 
 ## General
